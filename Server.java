@@ -1,13 +1,18 @@
 import java.io.*;
 import java.net.*;
 import java.security.KeyStore;
+import java.security.KeyStore.Entry;
+import java.util.LinkedList;
+
 import javax.net.*;
 import javax.net.ssl.*;
 import javax.security.cert.X509Certificate;
 
+import online.*;
+import repository.Repository;
 import model.Result;
 import model.User;
-import online.GetEntityRequest;
+import model.entities.Entity;
 
 public class Server implements Runnable {
   private ServerSocket serverSocket = null;
@@ -106,41 +111,24 @@ public class Server implements Runnable {
     System.out.println("client name (cert subject DN field): " + subject);
     User user= getUser(subject);
 
-    PrintWriter out = null;
-    BufferedReader in = null;
+    
     // fix this
     ObjectOutputStream objectSender =  new ObjectOutputStream(socket.getOutputStream());
     ObjectInputStream objectReceiver = new ObjectInputStream(socket.getInputStream());
-    out = new PrintWriter(socket.getOutputStream(), true);
-    in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-    try {
-    GetEntityRequest request= (GetEntityRequest)objectReceiver.readObject();
-    System.out.println(request.getId());
-	} catch (ClassNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+    while(true){
+      try {
+        Message request= (Message) objectReceiver.readObject();
+    
+        Message response= parseRequest(user,request);
+       objectSender.writeObject(response);
+    
+        } catch (ClassNotFoundException e) {
+        
+        e.printStackTrace();
+      }
+    }
     
 
-    String clientMsg = null;
-    while ((clientMsg = in.readLine()) != null) {
-      //String rev = new StringBuilder(clientMsg).reverse().toString();
-      System.out.println("received '" + clientMsg + "' from client");
-      Result res= user.authenticate(clientMsg.split(",")[0], clientMsg.split(",")[1]);
-      if(res!=null)
-        out.println(res.role+","+res.division);
-        else         
-        out.println("faild");
-
-     //System.out.print("sending '" + rev + "' to client...");
-     // out.println(rev);
-      out.flush();
-      System.out.println("done\n");
-      //in.close();
-      //out.close();
-
-
-  }
 }
   private User getUser(String data){
     String[]info=data.split(",");
@@ -148,6 +136,30 @@ public class Server implements Runnable {
     String role =info[2].split("=")[1];
     String department= info[1].split("=")[1];
     return new User(name, role, department);
+  }
+
+  private Message parseRequest(User user,Message request){
+    if(request instanceof LoginRequest){
+      LoginRequest tmp= (LoginRequest)request;
+      Result result=user.authenticate(tmp.getUsername(), tmp.getPassword());
+      if(result!=null){
+        return new LoginResponse(result.role, result.division);
+      }
+      return new LoginResponse(false, "Authentication faild");
+      
+
+
+    }
+    if(request instanceof GetEntityRequest){
+      GetEntityRequest tmp= (GetEntityRequest)request;
+       return new GetEntityResponse(new LinkedList<Entity>());
+      
+
+
+    }
+	return null;
+    
+
   }
   
 }

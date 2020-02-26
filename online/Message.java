@@ -2,7 +2,7 @@ package online;
 
 import java.io.Serializable;
 
-interface Message extends Serializable{
-    
+public interface Message extends Serializable{
+
 
 }
