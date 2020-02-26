@@ -8,15 +8,15 @@ import java.util.Scanner;
 
 import model.Password;
 
-public class Repository{
+public class FileRepository{
     private Map<String,Password>map= new HashMap<>();
-    private static Repository repository;
-    private Repository(String path){
+    private static FileRepository repository;
+    private FileRepository(String path){
         init(path);
     }
-    public static Repository getRepository(){
+    public static FileRepository getRepository(){
         if(repository==null){
-            return repository= new Repository("auth.txt");
+            return repository= new FileRepository("auth.txt");
         }
         return repository;
     }

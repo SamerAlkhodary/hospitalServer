@@ -9,11 +9,11 @@ import java.util.Random;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-import io.Repository;
+import io.FileRepository;
 
-public class Person{
+public class User{
     private String name, role,department;
-    public Person(String name, String role, String department){
+    public User(String name, String role, String department){
         this.name=name;
         this.role=role;
         this.department=department;
@@ -40,7 +40,7 @@ public class Person{
 
     }
     private boolean rightPassword(String password,String username) {
-        Repository repo= Repository.getRepository();
+        FileRepository repo= FileRepository.getRepository();
         Password passwordObject=repo.getPassword(username);
 
       //  byte[]salt = new byte[16];

@@ -5,9 +5,9 @@ import javax.net.*;
 import javax.net.ssl.*;
 import javax.security.cert.X509Certificate;
 
-import io.Repository;
-import model.Person;
 import model.Result;
+import model.User;
+import online.GetEntityRequest;
 
 public class Server implements Runnable {
   private ServerSocket serverSocket = null;
@@ -104,12 +104,23 @@ public class Server implements Runnable {
     numConnectedClients++;
     System.out.println("client connected");
     System.out.println("client name (cert subject DN field): " + subject);
-    Person user= getUser(subject);
+    User user= getUser(subject);
 
     PrintWriter out = null;
     BufferedReader in = null;
+    // fix this
+    ObjectOutputStream objectSender =  new ObjectOutputStream(socket.getOutputStream());
+    ObjectInputStream objectReceiver = new ObjectInputStream(socket.getInputStream());
     out = new PrintWriter(socket.getOutputStream(), true);
     in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    try {
+    GetEntityRequest request= (GetEntityRequest)objectReceiver.readObject();
+    System.out.println(request.getId());
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+    
 
     String clientMsg = null;
     while ((clientMsg = in.readLine()) != null) {
@@ -131,12 +142,12 @@ public class Server implements Runnable {
 
   }
 }
-  private Person getUser(String data){
+  private User getUser(String data){
     String[]info=data.split(",");
     String name=info[0].split("=")[1];
     String role =info[2].split("=")[1];
     String department= info[1].split("=")[1];
-    return new Person(name, role, department);
+    return new User(name, role, department);
   }
   
 }
