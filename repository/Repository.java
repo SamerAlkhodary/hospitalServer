@@ -8,7 +8,7 @@ import model.entities.Entity;
 
 public interface Repository{
      List<Entity>getEntities(int id,String division);
-     void addEntity(Entity entity);
+     boolean addEntity(Entity entity);
      void removeEntity(Entity entity);
      
      

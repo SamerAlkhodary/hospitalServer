@@ -2,45 +2,165 @@ package io;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import model.Password;
+import model.CredInfo;
+import model.entities.Doctor;
+import model.entities.Nurse;
+import model.entities.Patient;
 
 public class FileRepository{
-    private Map<String,Password>map= new HashMap<>();
+    private String patientPath= "db/patient.txt";
+    private String doctorPath= "db/doctor.txt";
+    private String nursePath= "db/nurse.txt";
+    private String credPath= "db/auth.txt";
+    private String logPath= "db/log.txt";
+    private Map<String, CredInfo>map= new HashMap<>();
+    private Map<Integer,Patient>patients= new HashMap<>();
+    private Map<Integer, Nurse>nurses= new HashMap<>();
+    private Map<Integer, Doctor>doctors= new HashMap<>();
+
     private static FileRepository repository;
-    private FileRepository(String path){
-        init(path);
+    private FileRepository(){
+        init(credPath);
+        loadDoctors();
+        loadNurses();
+        loadPatients();
     }
     public static FileRepository getRepository(){
         if(repository==null){
-            return repository= new FileRepository("auth.txt");
+            return repository= new FileRepository();
         }
         return repository;
     }
-
-    public  void init(String path){
+    private   void init(String path){
         try {
             File myObj = new File(path);
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
               String data = myReader.nextLine();
               String[]info=data.split(":");
-              System.out.println(info.length);
-              Password password= new Password(info[1],info[2]);
-              map.put(info[0], password); 
+              CredInfo credInfo = new CredInfo(info[2],info[3],Integer.parseInt(info[1]));
+              map.put(info[0], credInfo);
             }
             myReader.close();
           } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
           }
+    }
+
+    public void savePatient(Patient patient){
+        patients.put(patient.getId(),patient);
+        File myObj = new File(patientPath);
+        try {
+            FileWriter fileWriter= new FileWriter(myObj,true);
+            fileWriter.write(patient.save()+'\n');
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadPatients(){
+
+        try {
+            File myObj = new File(patientPath);
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                String[]info=data.split(":");
+                Patient patient = new Patient(Integer.parseInt(info[1]),info[0],info[3],info[2]);
+                int doctorId=Integer.parseInt(info[4]);
+                if( doctorId!=-1){
+                    patient.setDoctor(doctors.get(doctorId));
+                    doctors.get(doctorId).addPatient(patient);
+                }
+                int nurseId=Integer.parseInt(info[4]);
+                if( nurseId!=-1){
+                    patient.setNurse(nurses.get(doctorId));
+                    nurses.get(nurseId).addPatient(patient);
+                }
+
+                patients.put(patient.getId(),patient);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    private void loadNurses(){
+
+        try {
+            File myObj = new File(nursePath);
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                String[]info=data.split(":");
+                Nurse nurse = new Nurse(Integer.parseInt(info[1]),info[0],info[3],info[2]);
+
+                nurses.put(nurse.getId(),nurse);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
 
 
     }
-    public Password getPassword(String user){
+    private void loadDoctors(){
+
+        try {
+            File myObj = new File(doctorPath);
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                String[]info=data.split(":");
+                Doctor doctor = new Doctor(Integer.parseInt(info[1]),info[0],info[3],info[2]);
+
+                doctors.put(doctor.getId(),doctor);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+    }
+
+    public Map<Integer, Patient> getPatients() {
+        return patients;
+    }
+
+    public Map<Integer, Nurse> getNurses() {
+        return nurses;
+    }
+
+    public Map<Integer, Doctor> getDoctors() {
+        return doctors;
+    }
+
+    public CredInfo getPassword(String user){
         return map.get(user);
+    }
+
+
+
+    public void logEvent(String log) {
+
+        File myObj = new File(logPath);
+        try {
+            FileWriter fileWriter= new FileWriter(myObj,true);
+            fileWriter.write(log+'\n');
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

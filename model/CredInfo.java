@@ -1,8 +1,10 @@
 package model;
-public class Password{
+public class CredInfo {
     private String hash;
     private String salt;
-    public Password(String hash, String salt){
+    private int id;
+    public CredInfo(String hash, String salt,int id){
+        this.id= id;
         this.hash= hash;
         this.salt=salt;
     }
@@ -13,4 +15,7 @@ public class Password{
         return this.salt;   
     }
 
+    public int getId() {
+        return id;
+    }
 }

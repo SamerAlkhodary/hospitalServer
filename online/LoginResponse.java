@@ -1,12 +1,14 @@
 package online;
+
+import model.entities.Entity;
+
 public class LoginResponse implements Message {
-    private String role,division;
+private Entity entity;
     private boolean success;
     private  String message;
 
-    public LoginResponse(String role, String division) {
-        this.role = role;
-        this.division = division;
+    public LoginResponse(Entity entity) {
+        this.entity=entity;
         success= true;
         message="success";
     }
@@ -16,12 +18,8 @@ public class LoginResponse implements Message {
         this.message = message;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public String getDivision() {
-        return division;
+    public Entity getEntity() {
+        return entity;
     }
 
     public boolean isSuccess() {

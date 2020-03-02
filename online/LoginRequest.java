@@ -1,4 +1,5 @@
 package online;
+
 public class LoginRequest implements  Message {
     private String username, password;
 

@@ -1,18 +1,20 @@
 import java.io.*;
 import java.net.*;
 import java.security.KeyStore;
-import java.security.KeyStore.Entry;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.net.*;
 import javax.net.ssl.*;
 import javax.security.cert.X509Certificate;
 
+import io.FileRepository;
+import model.Logger;
+import model.entities.Patient;
 import online.*;
-import repository.Repository;
 import model.Result;
 import model.User;
-import model.entities.Entity;
 
 public class Server implements Runnable {
   private ServerSocket serverSocket = null;
@@ -76,12 +78,7 @@ public class Server implements Runnable {
         KeyStore ts = KeyStore.getInstance("JKS");
         char[] password = "password".toCharArray();
 
-        // ks.load(new FileInputStream("serverkeystore"), password);  // keystore password
-        // (storepass)
-        // ts.load(new FileInputStream("servertruststore"), password); // truststore password
-        // (storepass)
 
-        /* here we are using our files*/
         ks.load(
             new FileInputStream("keys/serverkeystore"),
             password); // keystore password (storepass)
@@ -127,8 +124,6 @@ public class Server implements Runnable {
         e.printStackTrace();
       }
     }
-    
-
 }
   private User getUser(String data){
     String[]info=data.split(",");
@@ -140,23 +135,33 @@ public class Server implements Runnable {
 
   private Message parseRequest(User user,Message request){
     if(request instanceof LoginRequest){
+
       LoginRequest tmp= (LoginRequest)request;
+      Logger.logEvent(tmp.getUsername(),"login");
       Result result=user.authenticate(tmp.getUsername(), tmp.getPassword());
       if(result!=null){
-        return new LoginResponse(result.role, result.division);
+        Logger.logEvent(tmp.getUsername(),"login success");
+        System.out.println(FileRepository.getRepository().getDoctors().get(result.id).getRole());
+        switch (result.role.toLowerCase()){
+
+          case "doctor": return new LoginResponse(FileRepository.getRepository().getDoctors().get(result.id));
+          case "nurse": return new LoginResponse(FileRepository.getRepository().getNurses().get(result.id));
+          case "patient": return new LoginResponse(FileRepository.getRepository().getPatients().get(result.id));
+        }
       }
+      Logger.logEvent(tmp.getUsername(),"login faild");
       return new LoginResponse(false, "Authentication faild");
-      
-
-
     }
-    if(request instanceof GetEntityRequest){
-      GetEntityRequest tmp= (GetEntityRequest)request;
-       return new GetEntityResponse(new LinkedList<Entity>());
-      
-
-
+    if(request instanceof GetPatientRequest){
+      GetPatientRequest tmp= (GetPatientRequest)request;
+      Logger.logEvent(tmp.getIssuerId()+"", "get patients");
+      List<Patient>list= new LinkedList<>(FileRepository.getRepository().getPatients().values());
+      System.out.println(list.get(0).getDivision());
+      list= list.stream().filter((p -> p.getDivision().equals(tmp.getDivision()))).collect(Collectors.toList());
+      System.out.println(list.size());
+       return new GetPatientResponse(list);
     }
+
 	return null;
     
 
