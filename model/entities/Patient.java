@@ -1,32 +1,31 @@
 package model.entities;
+
+
+import model.Record;
+
 public class Patient extends  Entity {
-    private Nurse nurse;
-    private Doctor doctor;
+    private Record record;
+
     public Patient(int id, String name, String division, String role) {
         super(id, name, division, role);
+        this.record=Record.builder();
     }
 
-    public Nurse getNurse() {
-        return nurse;
+    public Record getRecord() {
+        return record;
     }
 
-    public void setNurse(Nurse nurse) {
-        this.nurse = nurse;
+    public void setRecord(Record record) {
+        this.record = record;
     }
 
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
     public String toString(){
         return "Name: " + this.getName() +
                 "\nID: "+this.id+
                 "\nDivision: " + this.getDivision() +
-                "\nDoctor: " + (doctor == null ? "not assigned" : this.doctor.getName()) +
-                "\nNurse: " + (nurse == null ? "not assigned" : this.nurse.getName());
+                "\nDoctor: " + ((this.record.getDoctor() == null ? "not assigned" : (this.record.getDoctor().getName()) +
+                "\nNurse: " + (this.record.getNurse() == null ? "not assigned" : this.record.getNurse().getName())))+
+                "\nDescription: "+this.getRecord().getDescription();
 
 
 
@@ -34,11 +33,10 @@ public class Patient extends  Entity {
     public  String save(){
         return this.getName() +
                 ":"+this.id+
-                ":" + this.getDivision() +
                 ":" + this.getRole()+
-                ":" + (doctor == null ? "-1" : this.doctor.getId()) +
-                ":" + (nurse == null ? "-1" : this.nurse.getId());
-
+                ":" + this.getDivision() +
+                ":" + (this.record.getDoctor() == null ? "-1" : this.record.getDoctor().getId()) +
+                ":" + (this.record.getNurse() == null ? "-1" : this.record.getNurse().getId()) +
+                ":" + this.getRecord().getDescription();
     }
 }
-

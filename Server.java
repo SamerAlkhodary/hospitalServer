@@ -11,6 +11,7 @@ import javax.security.cert.X509Certificate;
 
 import io.FileRepository;
 import model.Logger;
+import model.Record;
 import model.entities.Patient;
 import online.*;
 import model.Result;
@@ -137,33 +138,83 @@ public class Server implements Runnable {
     if(request instanceof LoginRequest){
 
       LoginRequest tmp= (LoginRequest)request;
-      Logger.logEvent(tmp.getUsername(),"login");
-      Result result=user.authenticate(tmp.getUsername(), tmp.getPassword());
-      if(result!=null){
-        Logger.logEvent(tmp.getUsername(),"login success");
-        System.out.println(FileRepository.getRepository().getDoctors().get(result.id).getRole());
-        switch (result.role.toLowerCase()){
+      return login(tmp,user);
 
-          case "doctor": return new LoginResponse(FileRepository.getRepository().getDoctors().get(result.id));
-          case "nurse": return new LoginResponse(FileRepository.getRepository().getNurses().get(result.id));
-          case "patient": return new LoginResponse(FileRepository.getRepository().getPatients().get(result.id));
-        }
-      }
-      Logger.logEvent(tmp.getUsername(),"login faild");
-      return new LoginResponse(false, "Authentication faild");
     }
     if(request instanceof GetPatientRequest){
       GetPatientRequest tmp= (GetPatientRequest)request;
-      Logger.logEvent(tmp.getIssuerId()+"", "get patients");
-      List<Patient>list= new LinkedList<>(FileRepository.getRepository().getPatients().values());
-      System.out.println(list.get(0).getDivision());
-      list= list.stream().filter((p -> p.getDivision().equals(tmp.getDivision()))).collect(Collectors.toList());
-      System.out.println(list.size());
-       return new GetPatientResponse(list);
+      return getPatient(tmp,user);
+
     }
+    if(request instanceof CreatePatientRequest){
+      CreatePatientRequest tmp= (CreatePatientRequest)request;
+      return createPatient(tmp);
+    }
+    if(request instanceof UpdateRequest){
+      UpdateRequest tmp= (UpdateRequest) request;
+      return update(tmp);
+
+    }
+
 
 	return null;
     
+
+  }
+  private UpdateResponse update(UpdateRequest request){
+    int id=request.getPatient().getId();
+    Logger.logEvent(request.getIssuer().getId()+"","Update on patient: "+ request.getPatient().getName());
+   FileRepository.getRepository().getPatients().put(id,request.getPatient());
+   FileRepository.getRepository().savePatient(request.getPatient());
+   return  new UpdateResponse(true,"success");
+
+  }
+  private  LoginResponse login(LoginRequest request,User user){
+    Logger.logEvent(request.getUsername(),"login");
+    Result result=user.authenticate(request.getUsername(), request.getPassword());
+    if(result!=null){
+      Logger.logEvent(request.getUsername(),"login success");
+      switch (result.role.toLowerCase()){
+
+        case "doctor": return new LoginResponse(FileRepository.getRepository().getDoctors().get(result.id));
+        case "nurse": return new LoginResponse(FileRepository.getRepository().getNurses().get(result.id));
+        case "patient": return new LoginResponse(FileRepository.getRepository().getPatients().get(result.id));
+        case "government": return new LoginResponse(FileRepository.getRepository().getGovernments().get(result.id));
+      }
+    }
+    Logger.logEvent(request.getUsername(),"login faild");
+    return new LoginResponse(false, "Authentication faild");
+  }
+  private GetPatientResponse getPatient(GetPatientRequest request,User user){
+
+    Logger.logEvent(request.getIssuerId()+"", "get patients");
+
+    List<Patient>list= new LinkedList<>(FileRepository.getRepository().getPatients().values());
+      if(user.getRole().toLowerCase().equals("government")){
+          return new GetPatientResponse(list);
+      }
+    list= list.stream().filter((p -> p.getDivision().equals(request.getDivision()))).collect(Collectors.toList());
+    return new GetPatientResponse(list);
+  }
+  private CreatePatientResponse createPatient (CreatePatientRequest request){
+    Logger.logEvent(request.getIssuerId()+"", "create patient " +request.getPatient().getName());
+    Patient p= request.getPatient();
+    Record record= p.getRecord();
+
+    Patient res= new Patient(FileRepository.getRepository().id(),p.getName(),p.getDivision(),p.getRole());
+
+    res.setRecord(Record.builder().
+            assignNurse(FileRepository.getRepository().
+                    getNurses().get(Integer.parseInt(record.getNurseId()))).
+            assignDoctor(record.getDoctor()));
+    System.out.println(res.getRecord().getNurse());
+
+    FileRepository.getRepository().savePatient(res);
+    res.getRecord().getNurse().addPatient(res);
+    res.getRecord().getDoctor().addPatient(res);
+
+    return new CreatePatientResponse(res,true,"success");
+
 
   }
   

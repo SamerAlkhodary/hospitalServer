@@ -38,3 +38,160 @@
 2020-03-02T11:43:19.129272: Jamil maqdis has request login
 2020-03-02T11:43:19.185851: Jamil maqdis has request login success
 2020-03-02T11:43:21.072508: 1 has request get patients
+2020-03-02T12:40:09.073510: jamil maqdis has request login
+2020-03-02T12:40:09.158077: jamil maqdis has request login success
+2020-03-02T12:40:12.473716: 1 has request get patients
+2020-03-02T12:40:48.823001: 1 has request create patient Ahmad hallak
+2020-03-02T12:42:14.918479: jamil maqdis has request login
+2020-03-02T12:42:14.977666: jamil maqdis has request login success
+2020-03-02T12:42:25.336530: 1 has request create patient Sara hammad
+2020-03-02T22:26:52.455618: jamil maqdis has request login
+2020-03-02T22:26:52.545045: jamil maqdis has request login success
+2020-03-02T22:28:36.826444: Jamil maqdis has request login
+2020-03-02T22:28:36.886190: Jamil maqdis has request login success
+2020-03-02T22:28:41.889376: 1 has request get patients
+2020-03-02T22:30:17.537522: jamil has request login
+2020-03-02T22:30:17.537761: jamil has request login faild
+2020-03-02T22:30:25.059727: jamil maqdis has request login
+2020-03-02T22:30:25.115997: jamil maqdis has request login success
+2020-03-02T22:30:26.681481: 1 has request get patients
+2020-03-02T22:31:47.245936: jamil maqdis has request login
+2020-03-02T22:31:47.302603: jamil maqdis has request login success
+2020-03-02T22:31:48.969014: 1 has request get patients
+2020-03-02T22:32:14.336299: jamil maqdis has request login
+2020-03-02T22:32:14.393639: jamil maqdis has request login success
+2020-03-02T22:32:15.278555: 1 has request get patients
+2020-03-02T22:33:45.651435: jamil maqdis has request login
+2020-03-02T22:33:45.741363: jamil maqdis has request login success
+2020-03-02T22:33:46.970593: 1 has request get patients
+2020-03-02T22:38:38.774583: jamil maqdis has request login
+2020-03-02T22:38:38.867512: jamil maqdis has request login success
+2020-03-02T22:38:39.901344: 1 has request get patients
+2020-03-02T22:39:35.618669: jamil maqdis has request login
+2020-03-02T22:39:35.711813: jamil maqdis has request login success
+2020-03-02T22:39:37.558321: 1 has request get patients
+2020-03-02T22:42:19.591442: jamil maqdis has request login
+2020-03-02T22:42:19.649364: jamil maqdis has request login success
+2020-03-02T22:43:06.805332: jamil maqdis has request login
+2020-03-02T22:43:06.863215: jamil maqdis has request login success
+2020-03-02T22:43:08.535230: 1 has request get patients
+2020-03-02T22:43:32.421140: 1 has request create patient Ahmad
+2020-03-02T22:44:48.529383: jamil maqdis has request login
+2020-03-02T22:44:48.586453: jamil maqdis has request login success
+2020-03-02T22:45:02.534766: 1 has request create patient Ahmad
+2020-03-02T22:47:10.662563: jamil maqdis has request login
+2020-03-02T22:47:10.720717: jamil maqdis has request login success
+2020-03-03T08:22:30.550647: jamil maqdis has request login
+2020-03-03T08:22:30.640315: jamil maqdis has request login success
+2020-03-03T08:22:33.602296: 1 has request get patients
+2020-03-03T08:23:16.161082: 1 has request create patient Anita Kori
+2020-03-03T08:25:22.365838: jamil maqdis has request login
+2020-03-03T08:25:22.423850: jamil maqdis has request login success
+2020-03-03T08:25:37.485252: 1 has request create patient Anita Kori
+2020-03-03T08:27:23.752345: Jamil Madis has request login
+2020-03-03T08:27:23.772393: Jamil Madis has request login faild
+2020-03-03T08:27:32.975209: Jamil Maqdis has request login
+2020-03-03T08:27:33.042798: Jamil Maqdis has request login success
+2020-03-03T08:27:35.533098: 1 has request get patients
+2020-03-03T08:27:44.657231: 1 has request create patient Anita
+2020-03-03T08:28:36.754169: Jamil Maqdis has request login
+2020-03-03T08:28:36.850675: Jamil Maqdis has request login success
+2020-03-03T08:28:44.961745: 1 has request create patient Anita
+2020-03-03T08:30:48.887059: Jamil Maqdis has request login
+2020-03-03T08:30:48.979043: Jamil Maqdis has request login success
+2020-03-03T08:32:10.878510: Jamil Maqdis has request login
+2020-03-03T08:32:10.936978: Jamil Maqdis has request login success
+2020-03-03T08:32:19.648981: 1 has request create patient anita
+2020-03-03T08:33:41.001963: jamil maqdis has request login
+2020-03-03T08:33:41.093385: jamil maqdis has request login success
+2020-03-03T08:33:47.208104: 1 has request create patient anita
+2020-03-03T08:35:51.459939: Jamil Maqdis has request login
+2020-03-03T08:35:51.554293: Jamil Maqdis has request login success
+2020-03-03T08:35:58.215987: 1 has request create patient anita
+2020-03-03T08:37:32.305809: Jamil Maqdis has request login
+2020-03-03T08:37:32.390837: Jamil Maqdis has request login success
+2020-03-03T08:37:39.208292: 1 has request create patient Anita
+2020-03-03T08:41:00.771181: Jamil Maqdis has request login
+2020-03-03T08:41:00.858752: Jamil Maqdis has request login success
+2020-03-03T08:41:07.425234: 1 has request create patient a
+2020-03-03T08:42:50.408253: jamil maqdis has request login
+2020-03-03T08:42:50.500220: jamil maqdis has request login success
+2020-03-03T08:43:02.206126: 1 has request create patient anita
+2020-03-03T08:44:54.273594: Jamil Maqdis has request login
+2020-03-03T08:44:54.365389: Jamil Maqdis has request login success
+2020-03-03T08:45:03.302540: 1 has request create patient anita
+2020-03-03T08:46:58.519378: jamil maqdis has request login
+2020-03-03T08:46:58.612502: jamil maqdis has request login success
+2020-03-03T08:47:08.305493: 1 has request create patient Anita
+2020-03-03T08:52:33.154403: Jamil Maqdis has request login
+2020-03-03T08:52:33.246848: Jamil Maqdis has request login success
+2020-03-03T08:52:56.210492: 1 has request create patient Anita Kori
+2020-03-03T08:54:53.679649: 1 has request get patients
+2020-03-03T08:57:50.150549: Jamil Mqdis has request login
+2020-03-03T08:57:50.150783: Jamil Mqdis has request login faild
+2020-03-03T08:57:59.438102: Jamil Maqdis has request login
+2020-03-03T08:57:59.497525: Jamil Maqdis has request login success
+2020-03-03T08:58:09.407091: 1 has request get patients
+2020-03-03T09:04:15.666307: Jamil Maqdis has request login
+2020-03-03T09:04:15.754138: Jamil Maqdis has request login success
+2020-03-03T09:04:18.831695: 1 has request get patients
+2020-03-03T09:14:27.908605: Jamil Maqdis has request login
+2020-03-03T09:14:27.992577: Jamil Maqdis has request login success
+2020-03-03T09:14:34.537024: 1 has request get patients
+2020-03-03T09:14:51.189404: 1 has request Update on patient: Anita Kori
+2020-03-03T09:18:02.764078: Jamil Maqdis has request login
+2020-03-03T09:18:02.824718: Jamil Maqdis has request login success
+2020-03-03T09:22:58.482582: Jamil Maqdis has request login
+2020-03-03T09:22:58.569316: Jamil Maqdis has request login success
+2020-03-03T09:23:00.500391: 1 has request get patients
+2020-03-03T09:23:03.848400: 1 has request get patients
+2020-03-03T09:23:43.595172: 1 has request get patients
+2020-03-03T09:24:39.839681: 1 has request Update on patient: Anita Kori
+2020-03-03T09:24:51.759298: 1 has request get patients
+2020-03-03T11:53:17.610908: Samer Alkhodary has request login
+2020-03-03T11:53:17.703990: Samer Alkhodary has request login success
+2020-03-03T11:54:09.544784: Samer Alkhodary has request login
+2020-03-03T11:54:09.603960: Samer Alkhodary has request login success
+2020-03-03T11:55:37.799929: Samer Alkhodary has request login
+2020-03-03T11:55:37.890961: Samer Alkhodary has request login success
+2020-03-03T11:59:29.904991: Samer Alkhodary has request login
+2020-03-03T11:59:29.964277: Samer Alkhodary has request login faild
+2020-03-03T11:59:36.424572: Samer Alkhodary has request login
+2020-03-03T11:59:36.481518: Samer Alkhodary has request login success
+2020-03-03T12:00:54.799430: Samer Alkhodary has request login
+2020-03-03T12:00:54.855696: Samer Alkhodary has request login success
+2020-03-03T12:00:55.905725: 5 has request get patients
+2020-03-03T12:04:14.882372: Samer has request login
+2020-03-03T12:04:14.882575: Samer has request login faild
+2020-03-03T12:04:20.040521: Samer Alkhodary has request login
+2020-03-03T12:04:20.097886: Samer Alkhodary has request login success
+2020-03-03T12:05:27.687309: s has request login
+2020-03-03T12:05:27.687598: s has request login faild
+2020-03-03T12:05:34.729922: Samer Alkhodary has request login
+2020-03-03T12:05:34.787230: Samer Alkhodary has request login success
+2020-03-03T12:31:04.744411: Health Department has request login
+2020-03-03T12:31:04.830675: Health Department has request login faild
+2020-03-03T12:32:08.644164: Health Department has request login
+2020-03-03T12:32:08.729814: Health Department has request login faild
+2020-03-03T12:32:39.584244: Health department has request login
+2020-03-03T12:32:39.642675: Health department has request login faild
+2020-03-03T12:33:47.341540: Health Department has request login
+2020-03-03T12:33:47.434535: Health Department has request login success
+2020-03-03T12:33:47.434761: Health Department has request login faild
+2020-03-03T12:34:54.606604: Health Deaprtment has request login
+2020-03-03T12:34:54.627475: Health Deaprtment has request login faild
+2020-03-03T12:35:03.344984: Health Department has request login
+2020-03-03T12:35:03.418929: Health Department has request login success
+2020-03-03T12:35:03.419122: Health Department has request login faild
+2020-03-03T12:36:18.485852: Health Department has request login
+2020-03-03T12:36:18.578472: Health Department has request login success
+2020-03-03T12:36:18.578664: Health Department has request login faild
+2020-03-03T12:38:52.658489: Health Department has request login
+2020-03-03T12:38:52.744227: Health Department has request login success
+2020-03-03T12:40:19.410683: Health Department has request login
+2020-03-03T12:40:19.469982: Health Department has request login success
+2020-03-03T12:41:03.184975: Health Department has request login
+2020-03-03T12:41:03.243605: Health Department has request login success
+2020-03-03T12:42:47.271622: Health Department has request login
+2020-03-03T12:42:47.329393: Health Department has request login success
+2020-03-03T12:42:51.838088: 10 has request get patients

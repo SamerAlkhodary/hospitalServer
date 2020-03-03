@@ -4,12 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 import model.CredInfo;
+import model.Record;
 import model.entities.Doctor;
+import model.entities.Government;
 import model.entities.Nurse;
 import model.entities.Patient;
 
@@ -19,17 +19,30 @@ public class FileRepository{
     private String nursePath= "db/nurse.txt";
     private String credPath= "db/auth.txt";
     private String logPath= "db/log.txt";
+    private String governmentPath= "db/government.txt";
     private Map<String, CredInfo>map= new HashMap<>();
     private Map<Integer,Patient>patients= new HashMap<>();
     private Map<Integer, Nurse>nurses= new HashMap<>();
     private Map<Integer, Doctor>doctors= new HashMap<>();
+    private Map<Integer, Government>governments= new HashMap<>();
+    private Set<Integer> idSet= new HashSet<>();
 
     private static FileRepository repository;
+
+    public Map<Integer, Government> getGovernments() {
+        return governments;
+    }
+
     private FileRepository(){
         init(credPath);
         loadDoctors();
         loadNurses();
         loadPatients();
+        loadGovernments();
+        idSet.addAll(doctors.keySet());
+        idSet.addAll(patients.keySet());
+        idSet.addAll(nurses.keySet());
+
     }
     public static FileRepository getRepository(){
         if(repository==null){
@@ -60,6 +73,7 @@ public class FileRepository{
         try {
             FileWriter fileWriter= new FileWriter(myObj,true);
             fileWriter.write(patient.save()+'\n');
+            fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,19 +88,21 @@ public class FileRepository{
                 String data = myReader.nextLine();
                 String[]info=data.split(":");
                 Patient patient = new Patient(Integer.parseInt(info[1]),info[0],info[3],info[2]);
+                patient.getRecord().addDescription(info[6]);
                 int doctorId=Integer.parseInt(info[4]);
                 if( doctorId!=-1){
-                    patient.setDoctor(doctors.get(doctorId));
+                    patient.getRecord().assignDoctor(doctors.get(doctorId));
                     doctors.get(doctorId).addPatient(patient);
                 }
-                int nurseId=Integer.parseInt(info[4]);
+                int nurseId=Integer.parseInt(info[5]);
                 if( nurseId!=-1){
-                    patient.setNurse(nurses.get(doctorId));
+                    patient.getRecord().assignNurse(nurses.get(nurseId));
                     nurses.get(nurseId).addPatient(patient);
                 }
 
                 patients.put(patient.getId(),patient);
             }
+
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
@@ -103,8 +119,26 @@ public class FileRepository{
                 String data = myReader.nextLine();
                 String[]info=data.split(":");
                 Nurse nurse = new Nurse(Integer.parseInt(info[1]),info[0],info[3],info[2]);
-
                 nurses.put(nurse.getId(),nurse);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+
+
+    }
+    private void loadGovernments(){
+
+        try {
+            File myObj = new File(governmentPath);
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                String[]info=data.split(":");
+                Government government = new Government(Integer.parseInt(info[1]),info[0],info[3],info[2]);
+                governments.put(government.getId(),government);
             }
             myReader.close();
         } catch (FileNotFoundException e) {
@@ -162,5 +196,16 @@ public class FileRepository{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Integer id() {
+        int id=new Random().nextInt();
+
+        while(idSet.contains(id)){
+            id=new Random().nextInt();
+        }
+        return id;
+
+
     }
 }

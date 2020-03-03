@@ -1,2 +1,3 @@
-Aslan Murjan:3:patient:1:-1:-1
-Anas Mofleh:4:patient:2:-1:-1
+Aslan Murjan:3:patient:1:1:5:Getting better
+Anas Mofleh:4:patient:2:-1:-1:Soon to be treated
+Anita Kori:255019141:patient:1:1:5:Better condition

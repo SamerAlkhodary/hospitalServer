@@ -3,6 +3,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
+import java.util.Random;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -27,6 +28,7 @@ public class User{
     public Result authenticate(String username, String password){
         if( username.toLowerCase().trim().equals(this.name.toLowerCase().trim()))
         {
+            System.out.println("jeree");
 
             if(rightPassword(password.trim(),username.toLowerCase().trim())){
 
@@ -45,10 +47,11 @@ public class User{
         boolean success=false;
 
       //  byte[]salt = new byte[16];
-       // new Random().nextBytes(salt);
+
+        //new Random().nextBytes(salt);
        Base64.Encoder encoder= Base64.getEncoder();
        Base64.Decoder decoder= Base64.getDecoder();
-       byte[]salt= decoder.decode(credInfoObject.getSalt());
+      byte[]salt= decoder.decode(credInfoObject.getSalt());
         KeySpec spec= new PBEKeySpec(password.toCharArray(),salt,65336,128);
         try {
             SecretKeyFactory secretKeyFactory= SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
@@ -56,6 +59,9 @@ public class User{
             
 
             String hashedString= encoder.encodeToString(hash);
+            System.out.println(hashedString);
+            System.out.println(credInfoObject.getHash());
+
 
             success= hashedString.equals(credInfoObject.getHash());
 
@@ -69,5 +75,7 @@ public class User{
         return success;
     }
 
-
+    public String getRole() {
+        return role;
+    }
 }
