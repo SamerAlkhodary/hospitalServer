@@ -1,14 +1,14 @@
 package model.entities;
 
-
 import model.Record;
 
-public class Patient extends  Entity {
+public class Patient extends Entity {
+    public final  static  String role= "PATIENT";
     private Record record;
 
     public Patient(int id, String name, String division, String role) {
         super(id, name, division, role);
-        this.record=Record.builder();
+        this.record=  Record.builder();
     }
 
     public Record getRecord() {
@@ -20,6 +20,7 @@ public class Patient extends  Entity {
     }
 
     public String toString(){
+
         return "Name: " + this.getName() +
                 "\nID: "+this.id+
                 "\nDivision: " + this.getDivision() +
@@ -29,14 +30,17 @@ public class Patient extends  Entity {
 
 
 
+
+
     }
     public  String save(){
         return this.getName() +
                 ":"+this.id+
-                ":" + this.getRole()+
                 ":" + this.getDivision() +
+                ":" + this.getRole()+
                 ":" + (this.record.getDoctor() == null ? "-1" : this.record.getDoctor().getId()) +
-                ":" + (this.record.getNurse() == null ? "-1" : this.record.getNurse().getId()) +
+                ":" + (this.record.getNurse() == null ? "-1" : this.record.getNurse().getId())+
                 ":" + this.getRecord().getDescription();
+
     }
 }

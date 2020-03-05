@@ -3,12 +3,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
-import java.util.Random;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-import io.FileRepository;
+import io.Data;
 
 public class User{
     private String name, role,department;
@@ -42,7 +41,7 @@ public class User{
 
     }
     private boolean rightPassword(String password,String username) {
-        FileRepository repo= FileRepository.getRepository();
+        Data repo= Data.getRepository();
         CredInfo credInfoObject =repo.getPassword(username);
         boolean success=false;
 

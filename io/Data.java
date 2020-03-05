@@ -7,19 +7,18 @@ import java.io.IOException;
 import java.util.*;
 
 import model.CredInfo;
-import model.Record;
 import model.entities.Doctor;
 import model.entities.Government;
 import model.entities.Nurse;
 import model.entities.Patient;
 
-public class FileRepository{
-    private String patientPath= "db/patient.txt";
-    private String doctorPath= "db/doctor.txt";
-    private String nursePath= "db/nurse.txt";
-    private String credPath= "db/auth.txt";
-    private String logPath= "db/log.txt";
-    private String governmentPath= "db/government.txt";
+public class Data {
+    private final String patientPath= "db/patient.txt";
+    private final String doctorPath= "db/doctor.txt";
+    private final String nursePath= "db/nurse.txt";
+    private final String credPath= "db/auth.txt";
+    private final String logPath= "db/log.txt";
+    private final String governmentPath= "db/government.txt";
     private Map<String, CredInfo>map= new HashMap<>();
     private Map<Integer,Patient>patients= new HashMap<>();
     private Map<Integer, Nurse>nurses= new HashMap<>();
@@ -27,13 +26,13 @@ public class FileRepository{
     private Map<Integer, Government>governments= new HashMap<>();
     private Set<Integer> idSet= new HashSet<>();
 
-    private static FileRepository repository;
+    private static Data repository;
 
     public Map<Integer, Government> getGovernments() {
         return governments;
     }
 
-    private FileRepository(){
+    private Data(){
         init(credPath);
         loadDoctors();
         loadNurses();
@@ -44,9 +43,9 @@ public class FileRepository{
         idSet.addAll(nurses.keySet());
 
     }
-    public static FileRepository getRepository(){
+    public static Data getRepository(){
         if(repository==null){
-            return repository= new FileRepository();
+            return repository= new Data();
         }
         return repository;
     }
@@ -65,6 +64,33 @@ public class FileRepository{
             System.out.println("An error occurred.");
             e.printStackTrace();
           }
+    }
+    public Patient deletePatient(Patient patient) {
+        Patient p = patients.remove(patient.getId());
+        if (p != null) {
+            File myObj = new File(patientPath);
+            try {
+                FileWriter fileWriter = new FileWriter(myObj, false);
+                patients.values().forEach(patient1 -> {
+                    try {
+
+                        fileWriter.write(patient1.save() + '\n');
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+                });
+                fileWriter.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        return p;
     }
 
     public void savePatient(Patient patient){

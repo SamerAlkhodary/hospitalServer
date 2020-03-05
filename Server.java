@@ -9,7 +9,7 @@ import javax.net.*;
 import javax.net.ssl.*;
 import javax.security.cert.X509Certificate;
 
-import io.FileRepository;
+import io.Data;
 import model.Logger;
 import model.Record;
 import model.entities.Patient;
@@ -19,7 +19,7 @@ import model.User;
 
 public class Server implements Runnable {
   private ServerSocket serverSocket = null;
-  private static int numConnectedClients = 0;
+
 
   public Server(ServerSocket ss) throws IOException {
   
@@ -35,9 +35,8 @@ public class Server implements Runnable {
     
       
       socket.close();
-      numConnectedClients--;
+
       System.out.println("client disconnected");
-      System.out.println(numConnectedClients + " concurrent connection(s)\n");
     } catch (IOException e) {
       System.out.println("Client died: " + e.getMessage());
       e.printStackTrace();
@@ -104,7 +103,6 @@ public class Server implements Runnable {
     SSLSession session = socket.getSession();
     X509Certificate cert = (X509Certificate) session.getPeerCertificateChain()[0];
     String subject = cert.getSubjectDN().getName();
-    numConnectedClients++;
     System.out.println("client connected");
     System.out.println("client name (cert subject DN field): " + subject);
     User user= getUser(subject);
@@ -155,17 +153,35 @@ public class Server implements Runnable {
       return update(tmp);
 
     }
+    if(request instanceof  RemoveRequest){
+      RemoveRequest removeRequest= (RemoveRequest)request;
+      return remove(removeRequest);
 
+    }
 
 	return null;
     
 
   }
+
+  private RemoveResponse remove(RemoveRequest request) {
+
+    Logger.logEvent(request.getIssuer().getId()+"","Remove oon patient "+ request.getPatient().getName());
+    Patient p= Data.getRepository().deletePatient(request.getPatient());
+    if(p == null){
+      return  new RemoveResponse(false,"user does not exist!");
+
+    }
+    return new RemoveResponse(true,"success");
+
+
+  }
+
   private UpdateResponse update(UpdateRequest request){
     int id=request.getPatient().getId();
     Logger.logEvent(request.getIssuer().getId()+"","Update on patient: "+ request.getPatient().getName());
-   FileRepository.getRepository().getPatients().put(id,request.getPatient());
-   FileRepository.getRepository().savePatient(request.getPatient());
+   Data.getRepository().getPatients().put(id,request.getPatient());
+   Data.getRepository().savePatient(request.getPatient());
    return  new UpdateResponse(true,"success");
 
   }
@@ -176,20 +192,20 @@ public class Server implements Runnable {
       Logger.logEvent(request.getUsername(),"login success");
       switch (result.role.toLowerCase()){
 
-        case "doctor": return new LoginResponse(FileRepository.getRepository().getDoctors().get(result.id));
-        case "nurse": return new LoginResponse(FileRepository.getRepository().getNurses().get(result.id));
-        case "patient": return new LoginResponse(FileRepository.getRepository().getPatients().get(result.id));
-        case "government": return new LoginResponse(FileRepository.getRepository().getGovernments().get(result.id));
+        case "doctor": return new LoginResponse(Data.getRepository().getDoctors().get(result.id));
+        case "nurse": return new LoginResponse(Data.getRepository().getNurses().get(result.id));
+        case "patient": return new LoginResponse(Data.getRepository().getPatients().get(result.id));
+        case "government": return new LoginResponse(Data.getRepository().getGovernments().get(result.id));
       }
     }
-    Logger.logEvent(request.getUsername(),"login faild");
-    return new LoginResponse(false, "Authentication faild");
+    Logger.logEvent(request.getUsername(),"login failed");
+    return new LoginResponse(false, "Authentication failed");
   }
   private GetPatientResponse getPatient(GetPatientRequest request,User user){
 
     Logger.logEvent(request.getIssuerId()+"", "get patients");
 
-    List<Patient>list= new LinkedList<>(FileRepository.getRepository().getPatients().values());
+    List<Patient>list= new LinkedList<>(Data.getRepository().getPatients().values());
       if(user.getRole().toLowerCase().equals("government")){
           return new GetPatientResponse(list);
       }
@@ -201,15 +217,15 @@ public class Server implements Runnable {
     Patient p= request.getPatient();
     Record record= p.getRecord();
 
-    Patient res= new Patient(FileRepository.getRepository().id(),p.getName(),p.getDivision(),p.getRole());
+    Patient res= new Patient(Data.getRepository().id(),p.getName(),p.getDivision(),p.getRole());
 
     res.setRecord(Record.builder().
-            assignNurse(FileRepository.getRepository().
+            assignNurse(Data.getRepository().
                     getNurses().get(Integer.parseInt(record.getNurseId()))).
             assignDoctor(record.getDoctor()));
     System.out.println(res.getRecord().getNurse());
 
-    FileRepository.getRepository().savePatient(res);
+    Data.getRepository().savePatient(res);
     res.getRecord().getNurse().addPatient(res);
     res.getRecord().getDoctor().addPatient(res);
 

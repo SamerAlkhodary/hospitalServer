@@ -1,18 +1,19 @@
 package online;
 
-import model.entities.*;
+import model.entities.Government;
+import model.entities.Patient;
 
 public class RemoveRequest implements  Message {
-    private int issuerId;
+    private Government issuer;
     private Patient patient;
 
-    public RemoveRequest(int issuer, Patient patient) {
-        this.issuerId = issuer;
+    public RemoveRequest(Government issuer, Patient patient) {
+        this.issuer = issuer;
         this.patient = patient;
     }
 
-    public int getIssuer() {
-        return issuerId;
+    public Government getIssuer() {
+        return issuer;
     }
 
     public Patient getPatient() {

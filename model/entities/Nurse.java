@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Nurse extends Entity {
+    public final  static  String role= "NURSE";
     private List<Patient>patients = new LinkedList<>();
     public Nurse(int id, String name, String division, String role) {
         super(id, name, division, role);

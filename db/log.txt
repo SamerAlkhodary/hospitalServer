@@ -195,3 +195,51 @@
 2020-03-03T12:42:47.271622: Health Department has request login
 2020-03-03T12:42:47.329393: Health Department has request login success
 2020-03-03T12:42:51.838088: 10 has request get patients
+2020-03-04T13:41:20.303708: Health Department has request login
+2020-03-04T13:41:20.395576: Health Department has request login success
+2020-03-04T13:41:22.940978: 10 has request get patients
+2020-03-04T13:41:26.356341: 10 has request get patients
+2020-03-04T13:42:41.523675: health department has request login
+2020-03-04T13:42:41.582762: health department has request login faild
+2020-03-04T13:42:53.454496: health department has request login
+2020-03-04T13:42:53.512014: health department has request login success
+2020-03-04T13:42:56.471343: 10 has request get patients
+2020-03-04T13:46:22.407207: health department has request login
+2020-03-04T13:46:22.494095: health department has request login success
+2020-03-04T13:46:24.333431: 10 has request get patients
+2020-03-04T13:46:25.914120: 10 has request get patients
+2020-03-04T13:46:27.565698: 10 has request Remove oon patient Anita Kori
+2020-03-04T14:36:31.802182: Health Department has request login
+2020-03-04T14:36:31.897430: Health Department has request login success
+2020-03-04T14:36:33.565746: 10 has request get patients
+2020-03-04T14:36:36.254777: 10 has request get patients
+2020-03-04T14:36:38.346287: 10 has request Remove oon patient Anita Kori
+2020-03-04T14:37:46.389058: 10 has request get patients
+2020-03-04T14:37:50.549946: 10 has request get patients
+2020-03-04T14:38:03.185947: 10 has request Remove oon patient Anas Mofleh
+2020-03-04T14:39:39.679463: health department has request login
+2020-03-04T14:39:39.766375: health department has request login success
+2020-03-04T14:39:43.057069: 10 has request get patients
+2020-03-04T14:39:45.667167: 10 has request Remove oon patient Anita Kori
+2020-03-04T14:42:39.335186: health department has request login
+2020-03-04T14:42:39.422505: health department has request login success
+2020-03-04T14:42:41.821485: 10 has request get patients
+2020-03-04T14:42:43.768759: 10 has request Remove oon patient Anita Kori
+2020-03-04T14:42:46.250158: 10 has request get patients
+2020-03-04T14:44:10.281365: health department has request login
+2020-03-04T14:44:10.369016: health department has request login success
+2020-03-04T14:44:14.265188: 10 has request get patients
+2020-03-04T14:44:16.769295: 10 has request get patients
+2020-03-04T14:44:20.387536: 10 has request Remove oon patient Anita Kori
+2020-03-04T14:44:21.685414: 10 has request get patients
+2020-03-04T14:54:59.462223: Health department has request login
+2020-03-04T14:54:59.522445: Health department has request login success
+2020-03-04T14:56:06.093373: Health Department has request login
+2020-03-04T14:56:06.180600: Health Department has request login success
+2020-03-04T14:56:07.952043: 10 has request get patients
+2020-03-04T14:56:44.196600: Momo abo has request login
+2020-03-04T14:56:44.256564: Momo abo has request login success
+2020-03-04T14:56:46.917383: 2 has request get patients
+2020-03-04T14:57:33.144291: 2 has request create patient Sarah Nilsson
+2020-03-04T14:57:36.542708: 2 has request get patients
+2020-03-04T14:58:59.364655: 2 has request Update on patient: Sarah Nilsson
