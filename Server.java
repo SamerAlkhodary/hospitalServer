@@ -103,6 +103,7 @@ public class Server implements Runnable {
     SSLSession session = socket.getSession();
     X509Certificate cert = (X509Certificate) session.getPeerCertificateChain()[0];
     String subject = cert.getSubjectDN().getName();
+    numConnectedClients++;
     System.out.println("client connected");
     System.out.println("client name (cert subject DN field): " + subject);
     User user= getUser(subject);
