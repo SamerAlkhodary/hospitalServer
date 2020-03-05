@@ -15,13 +15,13 @@
  The server should have the db and the keys directories next to the Server.java file.
 
  To compile and run the server on port 8888, run the command: 
-       
+ 
        make run8888
 
  If one wishes to run the server on different port one should change the port in the client Connector class
 
  After terminating the server it is recommended to run the cleaner.sh script. This can be  done by using this command :
-      
-        ./cleaner.sh
+ 
+       ./cleaner.sh
        
 
