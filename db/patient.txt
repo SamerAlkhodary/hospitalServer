@@ -1,4 +1,6 @@
 Aslan Murjan:3:patient:1:1:5:Getting better
 Anas Mofleh:4:patient:2:-1:-1:Soon to be treated
-Sarah Nilsson:562708292:2:patient:2:6:null
 Sarah Nilsson:562708292:2:patient:2:6:Hopefully well
+Maria simpsons:1887727101:1:patient:1:-1:well
+Missy miss:659988930:1:patient:1:5:null
+Majid ahmad:-1371306474:1:patient:1:6:null

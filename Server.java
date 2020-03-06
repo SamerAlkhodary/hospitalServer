@@ -103,7 +103,6 @@ public class Server implements Runnable {
     SSLSession session = socket.getSession();
     X509Certificate cert = (X509Certificate) session.getPeerCertificateChain()[0];
     String subject = cert.getSubjectDN().getName();
-    numConnectedClients++;
     System.out.println("client connected");
     System.out.println("client name (cert subject DN field): " + subject);
     User user= getUser(subject);
@@ -167,7 +166,7 @@ public class Server implements Runnable {
 
   private RemoveResponse remove(RemoveRequest request) {
 
-    Logger.logEvent(request.getIssuer().getId()+"","Remove oon patient "+ request.getPatient().getName());
+    Logger.logEvent(request.getIssuer().getId()+"","Remove on patient "+ request.getPatient().getName());
     Patient p= Data.getRepository().deletePatient(request.getPatient());
     if(p == null){
       return  new RemoveResponse(false,"user does not exist!");
@@ -182,7 +181,7 @@ public class Server implements Runnable {
     int id=request.getPatient().getId();
     Logger.logEvent(request.getIssuer().getId()+"","Update on patient: "+ request.getPatient().getName());
    Data.getRepository().getPatients().put(id,request.getPatient());
-   Data.getRepository().savePatient(request.getPatient());
+   Data.getRepository().deletePatient(null);
    return  new UpdateResponse(true,"success");
 
   }
@@ -224,11 +223,14 @@ public class Server implements Runnable {
             assignNurse(Data.getRepository().
                     getNurses().get(Integer.parseInt(record.getNurseId()))).
             assignDoctor(record.getDoctor()));
-    System.out.println(res.getRecord().getNurse());
 
     Data.getRepository().savePatient(res);
-    res.getRecord().getNurse().addPatient(res);
     res.getRecord().getDoctor().addPatient(res);
+
+    if(res.getRecord().getNurse()==null){
+      return new CreatePatientResponse(res,true,"no nurse associated with the given ID");
+    }
+    res.getRecord().getNurse().addPatient(res);
 
     return new CreatePatientResponse(res,true,"success");
 

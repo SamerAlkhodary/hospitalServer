@@ -66,8 +66,11 @@ public class Data {
           }
     }
     public Patient deletePatient(Patient patient) {
-        Patient p = patients.remove(patient.getId());
-        if (p != null) {
+        Patient p=null;
+        if( patient!=null){
+             p = patients.remove(patient.getId());
+        }
+        if (p != null || patient==null) {
             File myObj = new File(patientPath);
             try {
                 FileWriter fileWriter = new FileWriter(myObj, false);

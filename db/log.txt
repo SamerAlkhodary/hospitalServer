@@ -243,3 +243,26 @@
 2020-03-04T14:57:33.144291: 2 has request create patient Sarah Nilsson
 2020-03-04T14:57:36.542708: 2 has request get patients
 2020-03-04T14:58:59.364655: 2 has request Update on patient: Sarah Nilsson
+2020-03-06T16:48:51.140420: jamil maqdis has request login
+2020-03-06T16:48:51.230084: jamil maqdis has request login success
+2020-03-06T16:49:18.741359: 1 has request create patient Maria simpsons
+2020-03-06T16:50:12.399315: 1 has request get patients
+2020-03-06T16:50:31.761644: 1 has request Update on patient: Maria simpsons
+2020-03-06T16:50:52.341405: 1 has request create patient Missy miss
+2020-03-06T16:51:25.158040: jamil maqdis has request login
+2020-03-06T16:51:25.218210: jamil maqdis has request login success
+2020-03-06T16:55:28.973470: Jamil maqdis has request login
+2020-03-06T16:55:28.973703: Jamil maqdis has request login failed
+2020-03-06T16:55:52.359599: Lara croft has request login
+2020-03-06T16:55:52.418114: Lara croft has request login failed
+2020-03-06T16:56:06.686271: lara croft has request login
+2020-03-06T16:56:06.745298: lara croft has request login success
+2020-03-06T16:56:08.594371: 6 has request get patients
+2020-03-06T17:02:44.173055: jamil maqdis has request login
+2020-03-06T17:02:44.194390: jamil maqdis has request login failed
+2020-03-06T17:02:56.085615: lara croft has request login
+2020-03-06T17:02:56.154191: lara croft has request login success
+2020-03-06T17:02:58.474022: 6 has request get patients
+2020-03-06T17:03:43.639551: jamil maqdis has request login
+2020-03-06T17:03:43.697654: jamil maqdis has request login success
+2020-03-06T17:04:00.665963: 1 has request create patient Majid ahmad
